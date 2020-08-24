@@ -2,14 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Box, TextField, Button } from '@material-ui/core';
 
-import { fetchWeatherData } from '../redux/actions'
+import { fetchWeatherData } from '../redux/actions';
 
-const SearchPanel = ({ ...props }) => {
-  const [city, setCity] = React.useState<string | null>(null)
+interface SearchPanelProps {
+  fetchData: (city: string | null) => any
+}
+
+const SearchPanel: React.FunctionComponent<SearchPanelProps> = ({ fetchData }) => {
+  const [city, setCity] = React.useState<string | null>(null);
 
   const submitHandler = () => {
-    props.fetchData(city)
-  }
+    fetchData(city)
+  };
 
   return (
     <Box {...{
@@ -41,7 +45,7 @@ const SearchPanel = ({ ...props }) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchData: (city: string) => dispatch(fetchWeatherData(city))
+    fetchData: (city: string | null) => dispatch(fetchWeatherData(city))
   };
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 
-import SearchPanel from './SearchPanel'
-import WeatherList from './WeatherList'
+import SearchPanel from './SearchPanel';
+import WeatherList from './WeatherList';
 
 export const App = () => (
   <Box {...{

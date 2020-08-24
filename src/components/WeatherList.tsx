@@ -3,6 +3,20 @@ import { connect } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+
+type ErrorProps = {
+  message: string,
+  stack: string,
+  qwe: number
+}[];
+
+interface WeatherListProps {
+  weather?: {
+    data: any;
+    error: ErrorProps;
+  };
+};
+
 const useStyles = makeStyles((theme) => ({
   weatherCard: {
     margin: '15px auto 0',
@@ -12,16 +26,16 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '1px 2px 10px rgba(0, 0, 0, .2)',
     backgroundColor: '#fff',
     textAlign: 'center'
-  }
-}))
+  },
+}));
 
-const WeatherList = ({ ...props }) => {
-  const classes = useStyles()
+const WeatherList: React.FunctionComponent<WeatherListProps> = ({ weather }) => {
+  const classes = useStyles();
 
   return (
     <>
       {
-        props.weather.cod === 200 && (
+        (!!weather?.data.length) && (
           <Box {...{
             component: 'div',
             className: classes.weatherCard
@@ -29,28 +43,37 @@ const WeatherList = ({ ...props }) => {
             <Typography {...{
               variant: 'h2',
             }}>
-              {props.weather.name}
+              {weather.data[0].name}
             </Typography>
             <Typography {...{ variant: 'body1' }}>
-              {props.weather.weather[0].main}
+              {weather.data[0].weather[0].main}
             </Typography>
             <Typography {...{ variant: 'body1' }}>
-              Wind {props.weather.wind.speed}km/h
+              Wind {weather.data[0].wind.speed}km/h
             </Typography>
             <Typography {...{ variant: 'body1' }}>
-              Temperature now: {props.weather.main.temp}
+              Temperature now: {weather.data[0].main.temp}
             </Typography>
             <Typography {...{ variant: 'body1' }}>
-              Temperature range: {props.weather.main.temp_min} - {props.weather.main.temp_max}
+              Temperature range: {weather.data[0].main.temp_min} - {weather.data[0].main.temp_max}
             </Typography>
           </Box>
         )
       }
+      {
+        (!!weather?.error.length) && (
+          <Typography {...{
+            variant: 'h2'
+          }}>
+            {weather.error[0].message}
+          </Typography>
+        )
+      }
     </>
   )
-}
+};
 
-const mapStateToProps = (weather: any) => {
+const mapStateToProps = (weather: WeatherListProps) => {
   return weather
 };
 
