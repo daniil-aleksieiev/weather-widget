@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 type ErrorProps = {
   message: string,
   stack: string,
-  qwe: number
 }[];
 
 interface WeatherListProps {
