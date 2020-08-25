@@ -28,7 +28,7 @@ const SearchPanel: React.FunctionComponent<SearchPanelProps> = ({ fetchData }) =
       <TextField {...{
         required: true,
         label: 'Where you are?',
-        onChange: (e) => setCity(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
         style: {
           margin: '15px 0'
         }
