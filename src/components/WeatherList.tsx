@@ -4,15 +4,15 @@ import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-type ErrorProps = {
-  message: string,
-  stack: string,
-}[];
+interface ErrorProps {
+  message: string;
+  stack: string;
+};
 
 interface WeatherListProps {
   weather?: {
     data: any;
-    error: ErrorProps;
+    error: Array<ErrorProps>;
   };
 };
 
